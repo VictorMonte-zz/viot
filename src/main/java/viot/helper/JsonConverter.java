@@ -16,7 +16,7 @@ public class JsonConverter {
                         .setDateFormat(new StdDateFormat());
     }
 
-    public static String convert(Object object) {
+    public static <T> String convert(T object) {
         String result = null;
         try {
             result = jsonMapper.writeValueAsString(object);
