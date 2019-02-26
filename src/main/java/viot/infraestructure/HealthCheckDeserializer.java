@@ -1,26 +1,25 @@
 package viot.infraestructure;
 
-import org.apache.kafka.common.serialization.Serializer;
+import org.apache.kafka.common.serialization.Deserializer;
+import viot.domain.HealthCheck;
 import viot.wrapper.ObjectMapperWrapper;
 
 import java.util.Map;
 
-public class HealthCheckSerializer implements Serializer {
-
+public class HealthCheckDeserializer implements Deserializer {
     @Override
     public void configure(Map configs, boolean isKey) { }
 
     @Override
-    public byte[] serialize(String topic, Object data) {
+    public Object deserialize(String topic, byte[] data) {
 
         if (data == null) {
             return null;
         }
 
-        return ObjectMapperWrapper.write(data);
+        return ObjectMapperWrapper.read(data, HealthCheck.class);
     }
 
     @Override
     public void close() { }
-
 }

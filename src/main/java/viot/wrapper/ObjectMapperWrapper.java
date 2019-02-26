@@ -1,4 +1,4 @@
-package viot.helper;
+package viot.wrapper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,5 +44,14 @@ public class ObjectMapperWrapper {
             e.printStackTrace();
         }
         return new byte[0];
+    }
+
+    public static <T> T read(byte[] source, Class<T> type) {
+        try {
+            jsonMapper.readValue(source, type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

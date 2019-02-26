@@ -1,14 +1,15 @@
-package viot;
+package viot.process.plain;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import viot.process.BaseProducer;
 import viot.domain.HealthCheck;
 import viot.faker.HealthCheckFaker;
-import viot.helper.ObjectMapperWrapper;
+import viot.wrapper.ObjectMapperWrapper;
 
 import java.util.Properties;
 
-public final class PlainProducer extends BaseProducer<String, String>{
+public final class PlainProducer extends BaseProducer<String, String> {
 
     public PlainProducer(String brokers) {
 

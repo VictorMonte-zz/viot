@@ -1,4 +1,4 @@
-package viot;
+package viot.process.plain;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -9,7 +9,7 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import viot.domain.HealthCheck;
-import viot.helper.ObjectMapperWrapper;
+import viot.wrapper.ObjectMapperWrapper;
 
 import java.time.Duration;
 import java.time.LocalDate;

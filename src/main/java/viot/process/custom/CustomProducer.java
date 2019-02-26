@@ -1,7 +1,8 @@
-package viot;
+package viot.process.custom;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import viot.process.BaseProducer;
 import viot.domain.HealthCheck;
 import viot.faker.HealthCheckFaker;
 import viot.infraestructure.HealthCheckSerializer;

@@ -1,13 +1,12 @@
-package viot;
+package viot.process.plain;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import viot.process.BaseConsumer;
 
 import java.util.Properties;
 
-public final class PlainConsumer {
-
-    private final KafkaConsumer<String, String> consumer;
+public final class PlainConsumer extends BaseConsumer<String, String> {
 
     public PlainConsumer(String brokers) {
         Properties properties = new Properties();
