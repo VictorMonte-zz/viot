@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 
-public class JsonConverter {
+import java.io.IOException;
+
+public class ObjectMapperWrapper {
 
     private static ObjectMapper jsonMapper;
 
@@ -24,5 +26,14 @@ public class JsonConverter {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static <T> T read(String json, Class<T> type) {
+        try {
+            return jsonMapper.readValue(json, type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
