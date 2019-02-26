@@ -86,4 +86,7 @@ public class HealthCheck {
         this.temperature = temperature;
         this.ipAddress = ipAddress;
     }
+
+    public HealthCheck() {
+    }
 }
