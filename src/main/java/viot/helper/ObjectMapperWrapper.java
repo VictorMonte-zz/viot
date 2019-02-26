@@ -36,4 +36,13 @@ public class ObjectMapperWrapper {
         }
         return null;
     }
+
+    public static byte[] write(Object data) {
+        try {
+            return jsonMapper.writeValueAsBytes(data);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
+    }
 }
