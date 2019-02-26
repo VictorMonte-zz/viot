@@ -8,7 +8,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import viot.domain.HealthCheck;
 import viot.faker.HealthCheckFaker;
-import viot.helper.JsonConverter;
+import viot.helper.ObjectMapperWrapper;
 
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
@@ -37,7 +37,7 @@ public final class PlainProducer {
         while (true) {
 
             HealthCheck healthCheck = HealthCheckFaker.create();
-            String healthCheckJson = JsonConverter.convert(healthCheck);
+            String healthCheckJson = ObjectMapperWrapper.convert(healthCheck);
 
             logger.info("Sending health check message");
 
