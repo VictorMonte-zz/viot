@@ -2,12 +2,13 @@ package viot.process.custom;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import viot.domain.HealthCheck;
 import viot.process.BaseConsumer;
 import viot.infraestructure.HealthCheckDeserializer;
 
 import java.util.Properties;
 
-public class CustomConsumer extends BaseConsumer {
+public class CustomConsumer extends BaseConsumer<String, HealthCheck> {
 
     public CustomConsumer(String brokers) {
         Properties properties = new Properties();
