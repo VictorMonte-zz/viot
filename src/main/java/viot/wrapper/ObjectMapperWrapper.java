@@ -19,13 +19,12 @@ public class ObjectMapperWrapper {
     }
 
     public static <T> String convert(T object) {
-        String result = null;
         try {
-            result = jsonMapper.writeValueAsString(object);
+            return jsonMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return result;
+        return null;
     }
 
     public static <T> T read(String json, Class<T> type) {
@@ -48,7 +47,7 @@ public class ObjectMapperWrapper {
 
     public static <T> T read(byte[] source, Class<T> type) {
         try {
-            jsonMapper.readValue(source, type);
+            return jsonMapper.readValue(source, type);
         } catch (IOException e) {
             e.printStackTrace();
         }
