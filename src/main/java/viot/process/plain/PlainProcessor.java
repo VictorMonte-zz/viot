@@ -9,12 +9,10 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import viot.domain.HealthCheck;
+import viot.service.MonitorService;
 import viot.wrapper.ObjectMapperWrapper;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
@@ -46,6 +44,8 @@ public class PlainProcessor {
 
         consumer.subscribe(Collections.singletonList("healthchecks"));
 
+        MonitorService monitor = new MonitorService();
+
         while(true) {
 
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1L));
@@ -55,16 +55,10 @@ public class PlainProcessor {
                 String json = record.value();
                 HealthCheck healthCheck = ObjectMapperWrapper.read(json, HealthCheck.class);
 
-                LocalDate startDateLocal = healthCheck
-                        .getLastStartedAt()
-                        .toInstant()
-                        .atZone(ZoneId.systemDefault())
-                        .toLocalDate();
-
-                int days = Period.between(startDateLocal, LocalDate.now()).getDays();
+                int uptime = monitor.getUptime(healthCheck);
 
                 Future<RecordMetadata> future = producer.send(
-                        new ProducerRecord<>("uptimes", healthCheck.getSerialNumber(), String.valueOf(days))
+                        new ProducerRecord<>("uptimes", healthCheck.getSerialNumber(), String.valueOf(uptime))
                 );
 
                 try {
