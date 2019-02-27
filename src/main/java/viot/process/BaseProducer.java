@@ -5,6 +5,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import viot.infraestructure.Configuration;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -20,7 +21,7 @@ public abstract class BaseProducer<K, V> {
 
             logger.info("Sending health check message");
 
-            ProducerRecord<K, V> record = new ProducerRecord<>("healthchecks", createValue());
+            ProducerRecord<K, V> record = new ProducerRecord<>(Configuration.getHealthCheckTopic(), createValue());
             Future<RecordMetadata> future = producer.send(record);
 
             try {
