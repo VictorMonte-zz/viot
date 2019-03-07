@@ -1,8 +1,8 @@
-package viot.process.plain;
+package viot.batch.plain;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.serialization.StringSerializer;
-import viot.process.BaseProducer;
+import viot.batch.BaseProducer;
 import viot.domain.HealthCheck;
 import viot.faker.HealthCheckFaker;
 import viot.wrapper.ObjectMapperWrapper;
@@ -29,7 +29,7 @@ public final class PlainProducer extends BaseProducer<String, String> {
     }
 
     public static void main(String[] args) {
-        new PlainProducer("localhost:9092").produce(2);
+        new PlainProducer("localhost:29092").produce(2);
     }
 
 }

@@ -1,4 +1,4 @@
-package viot.process.plain;
+package viot.batch.plain;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -71,6 +71,6 @@ public class PlainProcessor {
     }
 
     public static void main( String[] args) {
-        (new PlainProcessor("localhost:9092")).process();
+        (new PlainProcessor("localhost:29092")).process();
     }
 }

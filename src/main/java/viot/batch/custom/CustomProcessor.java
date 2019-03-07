@@ -1,4 +1,4 @@
-package viot.process.custom;
+package viot.batch.custom;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -79,7 +79,7 @@ public final class CustomProcessor {
     }
 
     public static void main(String[] args) {
-        new CustomProcessor("localhost:9092").process();
+        new CustomProcessor("localhost:29092").process();
     }
 }
 

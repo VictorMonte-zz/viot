@@ -8,8 +8,7 @@
  { "name": "serialNumber", "type": "string" },
  { "name": "type", "type": "string" },
  { "name": "status", "type": "string"},
- { "name": "lastStartedAt", "type": "long", "logicalType": "timestamp-
-    millis"},
+ { "name": "lastStartedAt", "type": "long", "logicalType": "timestamp-millis"},
  { "name": "temperature", "type": "float" },
  { "name": "ipAddress", "type": "string" }
  ]

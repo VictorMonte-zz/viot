@@ -1,4 +1,4 @@
-package viot.process;
+package viot.batch;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 

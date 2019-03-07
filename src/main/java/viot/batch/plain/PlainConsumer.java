@@ -1,8 +1,8 @@
-package viot.process.plain;
+package viot.batch.plain;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import viot.process.BaseConsumer;
+import viot.batch.BaseConsumer;
 
 import java.util.Properties;
 

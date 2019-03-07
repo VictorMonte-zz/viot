@@ -1,9 +1,9 @@
-package viot.process.custom;
+package viot.batch.custom;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import viot.domain.HealthCheck;
-import viot.process.BaseConsumer;
+import viot.batch.BaseConsumer;
 import viot.infraestructure.HealthCheckDeserializer;
 
 import java.util.Properties;

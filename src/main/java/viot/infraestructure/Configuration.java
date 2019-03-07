@@ -8,4 +8,8 @@ public class Configuration {
     public static String getUptimesTopic() {
         return "uptimes";
     }
+
+    public static String getHealthChecksAvroTopic() {
+        return "healthchecks-avro";
+    }
 }
