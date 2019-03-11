@@ -3,8 +3,8 @@ package viot.batch;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import viot.infraestructure.Configuration;
 
 import java.util.concurrent.ExecutionException;
@@ -12,8 +12,8 @@ import java.util.concurrent.Future;
 
 public abstract class BaseProducer<K, V> {
 
+    private static final Logger logger = LogManager.getLogger();
     protected KafkaProducer<K, V> producer;
-    private static final Logger logger = LogManager.getLogger(BaseProducer.class.getName());
 
     public void produce(int ratesPerSecond) {
 

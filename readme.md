@@ -53,13 +53,13 @@ Creating avro schema
 
 ```
 curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" \
---data '{ "schema": "{ \"name\": \"HealthCheck\", \"namespace\": \"kioto.avro\", \"type\": \"record\", \"fields\": [ { \"name\": \"event\", \"type\": \"string\" }, { \"name\": \"factory\", \"type\": \"string\" }, { \"name\": \"serialNumber\", \"type\": \"string\" }, { \"name\": \"type\", \"type\": \"string\" }, { \"name\": \"status\", \"type\": \"string\"}, { \"name\": \"lastStartedAt\", \"type\": \"long\", \"logicalType\": \"timestamp-millis\"}, { \"name\": \"temperature\", \"type\": \"float\" }, { \"name\": \"ipAddress\", \"type\": \"string\" } ]} " }' \
+--data '{ "schema": "{ \"name\": \"HealthCheck\", \"namespace\": \"viot.avro\", \"type\": \"record\", \"fields\": [ { \"name\": \"event\", \"type\": \"string\" }, { \"name\": \"factory\", \"type\": \"string\" }, { \"name\": \"serialNumber\", \"type\": \"string\" }, { \"name\": \"type\", \"type\": \"string\" }, { \"name\": \"status\", \"type\": \"string\"}, { \"name\": \"lastStartedAt\", \"type\": \"long\", \"logicalType\": \"timestamp-millis\"}, { \"name\": \"temperature\", \"type\": \"float\" }, { \"name\": \"ipAddress\", \"type\": \"string\" } ]} " }' \
 http://localhost:29081/subjects/healthchecks-avro-value/versions
 ```
 
 ## Testing
 
-Inside kafka
+Consuming to check data from Kakfa
 
 ```
 docker exec -it viot_kafka_1 kafka-console-consumer --bootstrap-server localhost:29092 --topic healthchecks
@@ -71,4 +71,16 @@ docker exec -it viot_kafka_1 kafka-console-consumer --bootstrap-server localhost
 
 ```
 docker exec -it viot_kafka_1 kafka-console-consumer --bootstrap-server localhost:29092 --topic healthchecks-avro
+```
+
+Running app Viot APP local
+
+Producing:
+```
+java -cp ./build/libs/viot-0.1.0.jar viot.batch.plain.PlainProducer
+```
+
+Consuming:
+```
+java -cp ./build/libs/viot-0.1.0.jar viot.batch.plain.PlainStreamsProcessor
 ```
