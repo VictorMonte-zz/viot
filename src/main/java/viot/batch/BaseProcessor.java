@@ -4,11 +4,8 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import viot.domain.HealthCheck;
 import viot.infraestructure.Configuration;
-import viot.infraestructure.HealthCheckDeserializer;
 import viot.service.MonitorService;
 
 import java.util.Properties;
