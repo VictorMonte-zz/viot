@@ -4,38 +4,24 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import viot.batch.BaseProcessor;
 import viot.domain.HealthCheck;
-import viot.service.MonitorService;
 import viot.wrapper.ObjectMapperWrapper;
 
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
-public class PlainProcessor {
-
-    private final KafkaConsumer<String, String> consumer;
-    private final KafkaProducer<String, String> producer;
+public class PlainProcessor extends BaseProcessor<KafkaProducer<String, String>, KafkaConsumer<String, String>> {
 
     public PlainProcessor(String brokers) {
 
-        Properties consumerProps = new Properties();
-        consumerProps.put("group.id", "healthcheck-processor");
-        consumerProps.put("bootstrap.servers", brokers);
-        consumerProps.put("key.deserializer", StringDeserializer.class);
-        consumerProps.put("value.deserializer", StringDeserializer.class);
+        final Properties consumerProps = getConsumerProperties(brokers, StringDeserializer.class, StringDeserializer.class);
         consumer = new KafkaConsumer<>(consumerProps);
 
-        Properties producerProps = new Properties();
-        producerProps.put("bootstrap.servers", brokers);
-        producerProps.put("key.serializer", StringSerializer.class);
-        producerProps.put("value.serializer", StringSerializer.class);
+        final Properties producerProps = getProducerProperties(brokers, StringSerializer.class, StringSerializer.class);
         producer = new KafkaProducer<>(producerProps);
 
     }
@@ -44,28 +30,14 @@ public class PlainProcessor {
 
         consumer.subscribe(Collections.singletonList("healthchecks"));
 
-        MonitorService monitor = new MonitorService();
-
         while(true) {
 
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1L));
 
             for (ConsumerRecord<String, String> record : records) {
-
                 String json = record.value();
                 HealthCheck healthCheck = ObjectMapperWrapper.read(json, HealthCheck.class);
-
-                int uptime = monitor.getUptime(healthCheck);
-
-                Future<RecordMetadata> future = producer.send(
-                        new ProducerRecord<>("uptimes", healthCheck.getSerialNumber(), String.valueOf(uptime))
-                );
-
-                try {
-                    future.get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                sendAndWait(healthCheck);
             }
         }
     }
