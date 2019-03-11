@@ -27,6 +27,6 @@ public final class CustomProducer extends BaseProducer<String, HealthCheck> {
     }
 
     public static void main(String[] args) {
-        new CustomProducer("localhost:9092").produce(2);
+        new CustomProducer("localhost:29092").produce(2);
     }
 }
