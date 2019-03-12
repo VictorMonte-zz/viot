@@ -11,6 +11,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import viot.batch.BaseProcessor;
 import viot.domain.HealthCheck;
 import viot.infraestructure.Configuration;
+import viot.mapper.HealthCheckMapper;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -52,15 +53,9 @@ public class AvroProcessor extends BaseProcessor<KafkaProducer<String, String>, 
 
         GenericRecord healthCheckAvro = record.value();
 
-        return new HealthCheck (
-                healthCheckAvro.get("event").toString(),
-                healthCheckAvro.get("factory").toString(),
-                healthCheckAvro.get("serialNumber").toString(),
-                healthCheckAvro.get("type").toString(),
-                healthCheckAvro.get("status").toString(),
-                new Date((Long)healthCheckAvro.get("lastStartedAt")),
-                Float.parseFloat(healthCheckAvro.get("temperature").toString()),
-                healthCheckAvro.get("ipAddress").toString());
+        final HealthCheck healthCheck = HealthCheckMapper.map(healthCheckAvro);
+
+        return healthCheck;
     }
 
     public static void main(String[] args) {
