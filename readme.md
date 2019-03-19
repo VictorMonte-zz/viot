@@ -42,6 +42,14 @@ docker exec -it viot_zookeeper_1 kafka-topics --zookeeper localhost:32181 --crea
 docker exec -it viot_zookeeper_1 kafka-topics --zookeeper localhost:32181 --create --topic healthchecks-avro --replication-factor 1 --partitions 4
 ```
 
+```
+docker exec -it viot_zookeeper_1 kafka-topics --zookeeper localhost:32181 --create --topic events --replication-factor 1 --partitions 4
+```
+
+```
+docker exec -it viot_zookeeper_1 kafka-topics --zookeeper localhost:32181 --create --topic aggregates --replication-factor 1 --partitions 4
+```
+
 Add your ip to your hosts(For Mac) Ref: https://github.com/santthosh/kafka-for-mac
 
 ```
@@ -71,6 +79,14 @@ docker exec -it viot_kafka_1 kafka-console-consumer --bootstrap-server localhost
 
 ```
 docker exec -it viot_kafka_1 kafka-console-consumer --bootstrap-server localhost:29092 --topic healthchecks-avro
+```
+
+```
+docker exec -it viot_kafka_1 kafka-console-consumer --bootstrap-server localhost:29092 --topic events
+```
+
+```
+docker exec -it viot_kafka_1 kafka-console-consumer --bootstrap-server localhost:29092 --topic aggregates
 ```
 
 Running app Viot APP local

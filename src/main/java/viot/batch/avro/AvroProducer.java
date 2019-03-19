@@ -25,11 +25,8 @@ public class AvroProducer {
 
     public AvroProducer(String brokers, String schemaRegistryUrl) {
 
-        Properties properties = new Properties();
-        properties.put("bootstrap.servers", brokers);
-        properties.put("key.serializer", StringSerializer.class);
-        properties.put("value.serializer", KafkaAvroSerializer.class);
-        properties.put("schema.registry.url", schemaRegistryUrl);
+        Properties properties = getProperties(brokers, schemaRegistryUrl);
+
         producer = new KafkaProducer<>(properties);
 
         try {
@@ -37,6 +34,18 @@ public class AvroProducer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private Properties getProperties(String brokers, String schemaRegistryUrl) {
+
+        Properties properties = new Properties();
+
+        properties.put("bootstrap.servers", brokers);
+        properties.put("key.serializer", StringSerializer.class);
+        properties.put("value.serializer", KafkaAvroSerializer.class);
+        properties.put("schema.registry.url", schemaRegistryUrl);
+
+        return properties;
     }
 
     public final void produce(int ratePerSecond) {
@@ -63,7 +72,9 @@ public class AvroProducer {
     }
 
     private GenericData.Record mapToAvro(HealthCheck fakeHealthCheck) {
+
         GenericRecordBuilder recordBuilder = new GenericRecordBuilder(schema);
+
         recordBuilder.set("event", fakeHealthCheck.getEvent());
         recordBuilder.set("factory", fakeHealthCheck.getFactory());
         recordBuilder.set("serialNumber", fakeHealthCheck.getSerialNumber());
@@ -72,6 +83,7 @@ public class AvroProducer {
         recordBuilder.set("lastStartedAt", fakeHealthCheck.getLastStartedAt().getTime());
         recordBuilder.set("temperature", fakeHealthCheck.getTemperature());
         recordBuilder.set("ipAddress", fakeHealthCheck.getIpAddress());
+
         return recordBuilder.build();
     }
 

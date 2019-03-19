@@ -12,4 +12,12 @@ public class Configuration {
     public static String getHealthChecksAvroTopic() {
         return "healthchecks-avro";
     }
+
+    public static String getEventsTopic() {
+        return "events";
+    }
+
+    public static String getAggregatesTopic() {
+        return "aggregates";
+    }
 }
